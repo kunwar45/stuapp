@@ -1,5 +1,21 @@
+.yellowcontainer {
+  padding: 0 2rem;
+  border: 1px solid #000000;
+  background-color: #F8F0E3;
+  border-radius: 10px;
+  max-width: 1080px;
+  max-height: 1920px;
+  text-align: center;
+  margin: 0 auto;
+}
+
 .container {
   padding: 0 2rem;
+  border-radius: 10px;
+  max-width: 1080px;
+  max-height: 1920px;
+  text-align: center;
+  margin: 0 auto;
 }
 
 .main {
@@ -75,26 +91,26 @@
 
 .card {
   margin: 1rem;
-  padding: 1.5rem;
+  padding: 1rem;
   text-align: left;
   color: inherit;
   text-decoration: none;
   border: 1px solid #eaeaea;
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
-  max-width: 100px;
+  max-width: 300px;
 }
 
 .menu {
   margin: 1rem;
-  padding: 1.5rem;
+  padding: 1rem;
   text-align: left;
   color: inherit;
   text-decoration: none;
   border: 1px solid #eaeaea;
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
-  max-width: 100px;
+  max-width: 700px;
 }
 
 .card:hover,
