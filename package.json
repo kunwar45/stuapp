@@ -1,0 +1,9 @@
+{
+    "scripts": {
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build"
+    },
+    "dependencies": {
+        "vue-template-compiler": "^2.7.13"
+    }
+}
