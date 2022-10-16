@@ -17,7 +17,7 @@ const app = Vue.createApp({
             this.color = 'yellow'
         },
         toBlackWhite(){
-            this.color = 'white'
+            this.color = 'blue'
         },
         changeFontSize(size){
             console.log(size)
