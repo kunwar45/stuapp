@@ -7,15 +7,16 @@ import io
 from PIL import Image
 from pdfminer.high_level import extract_pages
 from pdfminer.layout import LTTextContainer, LTChar
-
+from gtts import gTTS #pip install gTTS
+import os
 class Textbook:
 
     def __init__(self, textbook):
-        self.textbook = textbook
+        self.textbook=textbook
 
     #Returns the entire PDF into a string
-    def pdfToTxt(filename):
-        pdf = open(filename,"rb")
+    def pdfToTxt(self):
+        pdf = open(self.textbook,"rb")
         pdfReader = PyPDF2.PdfFileReader(pdf)
 
         num_pages = pdfReader.numPages
@@ -48,8 +49,8 @@ class Textbook:
 
 
     #Saves all the images of the pdf
-    def picextract(filename):
-        pdf_file = fitz.open(filename)
+    def picextract(self):
+        pdf_file = fitz.open(self.textbook)
         for page_index in range(len(pdf_file)):
         # get the page itself
             page = pdf_file[page_index]
@@ -71,13 +72,14 @@ class Textbook:
                 image = Image.open(io.BytesIO(image_bytes))
                 # save it to local disk
                 image.save(open(f"image{page_index+1}_{image_index}.{image_ext}", "wb"))
+        pdf_file.close()
 
 
     #Returns a list of all bolded words in the PDF
-    def getGlossary(filename):
-        bolded_dictionary={}
+    def getGlossary(self):
+       
         bolded_list=[]
-        for page_layout in extract_pages(filename):
+        for page_layout in extract_pages(self.textbook):
             for element in page_layout:
                 if isinstance(element, LTTextContainer):
                     for text_line in element:
@@ -89,13 +91,19 @@ class Textbook:
                                         boldword =weird_array[1]
                                         boldword= boldword[0:len(boldword)-3]
 
-                                        if boldword not in bolded_list:
+                                        if boldword+"*" not in bolded_list:
                                             bolded_list.append(boldword+"*")
                                             
 
                         except TypeError:
                             pass
         return bolded_list
-    def getQuestionBank():
-        return -1
-print(getGlossary(meditation))
+    def tts(self):
+        myobj = gTTS(text=self.pdfToTxt(), lang="en", slow=False)
+        myobj.save("audio.mp3")
+        os.system("audio.mp3")
+
+
+phil = Textbook("SamplePDF.pdf")
+#print (phil.textbook)
+phil.tts()
