@@ -11,8 +11,9 @@ from gtts import gTTS #pip install gTTS
 import os
 class Textbook:
 
-    def __init__(self, textbook):
-        self.textbook=textbook
+    def __init__(self, textbookName, textbookFilePath):
+        self.textbookName = textbookName
+        self.textbookFilePath = textbookFilePath
 
     #Returns the entire PDF into a string
     def pdfToTxt(self):
