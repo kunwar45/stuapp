@@ -70,7 +70,7 @@ def findboldedwords(filename):
 #This function doesn't work properly (don't call)
 #Should return a dictionary with the page number of bolded words
 def boldedinpages(filename):
-    bolded_dictionary={}
+    bold_arr=[]
 
     for page_layout in extract_pages(filename):
         for element in page_layout:
@@ -89,17 +89,8 @@ def boldedinpages(filename):
                                     second = pagey.find(")")
                                     pagenumber= pagey[first + 1:second]
 
-                                    if boldword not in bolded_dictionary.values():
-                                        bolded_dictionary[pagenumber]=[boldword]
-                                        print(boldword)
-                                        print(bolded_dictionary[pagenumber])
-                                        if boldword not in bolded_dictionary[pagenumber]:
-                                            print(boldword)
-                                            bolded_dictionary[pagenumber].append(boldword)
-                                            print(bolded_dictionary[pagenumber])
-                                            
-                                    
-                                        
+                                    boldarr
+                                                    
                     except TypeError:
                         pass
     return bolded_dictionary
@@ -128,7 +119,6 @@ def extract_images(filename):
             # save it to local disk
             image.save(open(f"image{page_index+1}_{image_index}.{image_ext}", "wb"))
     return image_index
-#pdftotxt(pdfFile)
-print(boldedinpages(pdfFile))
+
 
 

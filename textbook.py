@@ -37,7 +37,7 @@ class Textbook:
         else:
             text = textract.process(fileurl, method='tesseract', language='eng')   
         """
-        
+
         textfile=open("textfile.txt","w")
         textfile.write(text)
         textfile.close()
@@ -90,15 +90,12 @@ class Textbook:
                                         boldword= boldword[0:len(boldword)-3]
 
                                         if boldword not in bolded_list:
-                                            bolded_list.append(boldword)
-                                            pagey = str(page_layout)
-                                            first = pagey.find("(")
-                                            second = pagey.find(")")
-                                            pagenumber= pagey[first + 1:second]
-                                            bolded_dictionary[pagenumber]=boldword
+                                            bolded_list.append(boldword+"*")
+                                            
 
                         except TypeError:
                             pass
         return bolded_list
     def getQuestionBank():
         return -1
+print(getGlossary(meditation))
