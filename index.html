@@ -11,8 +11,15 @@
 
   <div id="app">
     <p>{{ color }}</p>
-    <div @click = "toBlackWhite"> Black and White</div>
-    <div @click = "toOffWhite"> Yellow</div>
+    <button @click = "toggleThemes">
+        <span v-if = "showThemes">Hide Theme </span>
+        <span v-if = "!showThemes">Show Theme </span>
+    </button>
+    <div v-if = "showThemes">
+        <h2 @click = "toBlackWhite"> Black and White</h2>
+        <h2 @click = "toOffWhite"> Yellow</h2>
+    </div>
+    
     <div @click = "changeFontSize(16)"> Change font</div>
   </div>
 

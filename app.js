@@ -4,10 +4,14 @@ const app = Vue.createApp({
     data() {
       return {
         color: 'yellow',
-        size: 18
+        size: 18,
+        showThemes: false
       }
     },
     methods: {
+        toggleThemes(){
+            this.showThemes = !this.showThemes
+        },
         toOffWhite(){
             this.color = 'yellow'
         },
