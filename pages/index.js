@@ -36,6 +36,7 @@ function NavBar(){
                 <a class="dropdown-item" href="#">Something else here</a>
               </div>
             </div>
+            <button onclick="styles.yellowcontainer.background-color = 'green';">Green</button>
         </div>
       </nav>
     </div>
@@ -48,7 +49,7 @@ export default function Home() {
   
   const changeBackgroundColor = ()=>{
     // 2
-    setBackgroundColor("yellow")
+    setBackgroundColor("yellow");
   }
 
   return (
