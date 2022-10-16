@@ -1,9 +1,11 @@
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Learning Vue</title>
   <script src="https://unpkg.com/vue@3.0.0"></script>
+  <link rel="stylesheet" href="styles/styles.css">
 </head>
 
 <body>
@@ -11,7 +13,9 @@
 
   <div id="app">
     <p>{{ color }}</p>
-    <button @click = "toggleThemes">
+
+    <!-- Toggling Themes -->
+    <button class = button @click = "toggleThemes">
         <span v-if = "showThemes">Hide Theme </span>
         <span v-if = "!showThemes">Show Theme </span>
     </button>
@@ -21,6 +25,16 @@
     </div>
     
     <div @click = "changeFontSize(16)"> Change font</div>
+
+    <!-- Highlighting Words -->
+    <div v-if = "isHighlighted" @click = "highlight"> 
+        word
+    </div>
+    <div v-if = "!isHighlighted" @click = "highlight"> 
+        <mark> word </mark> 
+    </div>
+    <div class = "yellowcontainer"></div>
+
   </div>
 
   <script src="app.js"></script>

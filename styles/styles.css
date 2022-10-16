@@ -166,3 +166,15 @@
     filter: invert(1);
   }
 }
+
+.button {
+  padding: 00.75rem;
+  background-color: antiquewhite;
+  font-size: 20px;
+  border-color: #eaeaea;
+
+}
+
+.term {
+
+}

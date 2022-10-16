@@ -5,7 +5,8 @@ const app = Vue.createApp({
       return {
         color: 'yellow',
         size: 18,
-        showThemes: false
+        showThemes: false,
+        isHighlighted: false
       }
     },
     methods: {
@@ -21,6 +22,9 @@ const app = Vue.createApp({
         changeFontSize(size){
             console.log(size)
             this.size = size
+        },
+        highlight(){
+            this.isHighlighted = !this.isHighlighted
         }
     }
   })
