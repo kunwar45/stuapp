@@ -2,12 +2,13 @@ import PyPDF2
 import textract
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
-
+import fitz # PyMuPDF
+import io
+from PIL import Image
 
 import pdfplumber
 pdfFile= open("Meditations_Cottingham.pdf","rb")
 def pdftotxt(filename):
-
 
     pdfReader = PyPDF2.PdfFileReader(pdfFile)
 
@@ -29,6 +30,9 @@ def pdftotxt(filename):
     #If the above returns as False, we run the OCR library textract to #convert scanned/image based PDF files into text.
     else:
         text = textract.process(fileurl, method='tesseract', language='eng')   
+    textfile=open("textfile.txt","w")
+    textfile.write(text)
+    textfile.close()
 
 
 
@@ -67,9 +71,7 @@ def findboldedwords(filename):
 #Should return a dictionary with the page number of bolded words
 def boldedinpages(filename):
     bolded_dictionary={}
-    prevbold=""
-    boldedstring=""
-    count=0
+
     for page_layout in extract_pages(filename):
         for element in page_layout:
             if isinstance(element, LTTextContainer):
@@ -77,6 +79,7 @@ def boldedinpages(filename):
                     try:
                         for character in text_line:
                             if isinstance(character, LTChar):
+
                                 if 'Bold' in character.fontname:
                                     weird_array =(str(text_line).strip().split("'"))
                                     boldword =weird_array[1]
@@ -85,25 +88,47 @@ def boldedinpages(filename):
                                     first = pagey.find("(")
                                     second = pagey.find(")")
                                     pagenumber= pagey[first + 1:second]
-                                    
-                                    
-                                    if boldword not in bolded_dictionary and count<10:
-                                        bolded_dictionary[pagenumber]=boldword
 
-                                        boldedstring = boldedstring +boldword
-                                        
-                                        print(boldedstring)
-                                  
+                                    if boldword not in bolded_dictionary.values():
+                                        bolded_dictionary[pagenumber]=[boldword]
+                                        print(boldword)
+                                        print(bolded_dictionary[pagenumber])
+                                        if boldword not in bolded_dictionary[pagenumber]:
+                                            print(boldword)
+                                            bolded_dictionary[pagenumber].append(boldword)
+                                            print(bolded_dictionary[pagenumber])
+                                            
                                     
                                         
                     except TypeError:
                         pass
     return bolded_dictionary
 
+def extract_images(filename):
+    pdf_file = fitz.open(filename)
+    for page_index in range(len(pdf_file)):
+    # get the page itself
+        page = pdf_file[page_index]
+        image_list = page.get_images()
+        # printing number of images found in this page
+        if image_list:
+            print(f"[+] Found a total of {len(image_list)} images in page {page_index}")
+        else:
+            print("[!] No images found on page", page_index)
+        for image_index, img in enumerate(page.get_images(), start=1):
+            # get the XREF of the image
+            xref = img[0]
+            # extract the image bytes
+            base_image = pdf_file.extract_image(xref)
+            image_bytes = base_image["image"]
+            # get the image extension
+            image_ext = base_image["ext"]
+            # load it to PIL
+            image = Image.open(io.BytesIO(image_bytes))
+            # save it to local disk
+            image.save(open(f"image{page_index+1}_{image_index}.{image_ext}", "wb"))
+    return image_index
+#pdftotxt(pdfFile)
+print(boldedinpages(pdfFile))
 
 
-
-
-
-
-textfile.write(text)
