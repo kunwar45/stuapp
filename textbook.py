@@ -21,7 +21,7 @@ class Textbook:
         self.textbookName = textbookName
         self.textbookFilePath = textbookFilePath
         
-        glossaryDB.insert_one({'text': self.getGlossary(textbookFilePath)})
+        glossaryDB.insert_one(self.getGlossary(textbookFilePath))
 
 
 
@@ -101,14 +101,15 @@ class Textbook:
                                         weird_array =(str(text_line).strip().split("'"))
                                         boldword =weird_array[1]
                                         boldword= boldword[0:len(boldword)-3]
-
                                         if boldword+"*" not in bolded_list:
                                             bolded_list.append(boldword+"*")
-                                            
-
                         except TypeError:
                             pass
-        return bolded_list
+        finalDict = {}
+        for item in bolded_list:
+            finalDict[item] = item
+        return finalDict
+    
     def tts(self):
         myobj = gTTS(text=self.pdfToTxt(), lang="en", slow=False)
         myobj.save("audio.mp3")
