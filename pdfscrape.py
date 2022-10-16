@@ -54,14 +54,10 @@ def findboldedwords(filename):
                                     weird_array =(str(text_line).strip().split("'"))
                                     boldword =weird_array[1]
                                     boldword= boldword[0:len(boldword)-3]
-
-                                    if boldword not in bolded_list:
-                                        bolded_list.append(boldword)
-                                        pagey = str(page_layout)
-                                        first = pagey.find("(")
-                                        second = pagey.find(")")
-                                        pagenumber= pagey[first + 1:second]
-                                        bolded_dictionary[pagenumber]=boldword
+            
+                                    if boldword+"*" not in bolded_list:
+                                        bolded_list.append(boldword+"*")
+                                    
 
                     except TypeError:
                         pass
@@ -121,4 +117,4 @@ def extract_images(filename):
     return image_index
 
 
-
+print(findboldedwords("Meditations_Cottingham.pdf"))
