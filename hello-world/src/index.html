@@ -1,0 +1,52 @@
+
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Learning Vue</title>
+      <script src="https://unpkg.com/vue@3.0.0"></script>
+      <link rel="stylesheet" href="styles/styles.css">
+    </head>
+    
+    <body>
+      <h1>Hello, Vue :)</h1>
+    
+      <div id="app">
+        <p>yo {{ color }}</p>
+        
+        
+    
+        <!-- Toggling Themes -->
+        <button class = button @click = "toggleThemes">
+            <span v-if = "showThemes">Hide Theme </span>
+            <span v-if = "!showThemes">Show Theme </span>
+        </button>
+        <div v-if = "showThemes">
+            <h2 @click = "toBlackWhite"> Black and White</h2>
+            <h2 @click = "toOffWhite"> Yellow</h2>
+        </div>
+        
+        <div @click = "changeFontSize(16)"> Change font</div>
+    
+        <!-- Highlighting Words -->
+        <div v-if = "isHighlighted" @click = "highlight"> 
+            word
+        </div>
+        <div v-if = "!isHighlighted" @click = "highlight"> 
+            <mark> word </mark> 
+        </div>
+    
+        <!-- Change Theme -->
+        <div v-if = "color == 'yellow'"> 
+            <div class = "yellowcontainer"></div>
+        </div>
+        <div v-if = "color == 'blue'"> 
+            <div class = "bluecontainer"></div>
+        </div>
+        
+    
+      </div>
+    
+      <script src="app.vue"></script>
+    </body>
+    </html>
