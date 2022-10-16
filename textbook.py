@@ -9,15 +9,25 @@ from pdfminer.high_level import extract_pages
 from pdfminer.layout import LTTextContainer, LTChar
 from gtts import gTTS #pip install gTTS
 import os
+
+from pymongo_get_database import get_database
+basicDB = get_database()
+glossaryDB = basicDB["glossary"]
+questionDB = basicDB["question"]
+
 class Textbook:
 
     def __init__(self, textbookName, textbookFilePath):
         self.textbookName = textbookName
         self.textbookFilePath = textbookFilePath
+        
+        glossaryDB.insert_one({'text': self.getGlossary(textbookFilePath)})
+
+
 
     #Returns the entire PDF into a string
-    def pdfToTxt(self):
-        pdf = open(self.textbook,"rb")
+    def pdfToText(filepath):
+        pdf = open(filepath,"rb")
         pdfReader = PyPDF2.PdfFileReader(pdf)
 
         num_pages = pdfReader.numPages
@@ -77,10 +87,10 @@ class Textbook:
 
 
     #Returns a list of all bolded words in the PDF
-    def getGlossary(self):
+    def getGlossary(filepath):
        
         bolded_list=[]
-        for page_layout in extract_pages(self.textbook):
+        for page_layout in extract_pages(filepath):
             for element in page_layout:
                 if isinstance(element, LTTextContainer):
                     for text_line in element:
